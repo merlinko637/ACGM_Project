@@ -1,6 +1,5 @@
 #pragma once
 
-#include <COGS/Color.h>
 #include <ACGM_RayTracer_lib/Ray.h>
 
 #include <optional>

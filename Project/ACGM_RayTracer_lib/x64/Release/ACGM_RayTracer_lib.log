@@ -1,28 +1,7 @@
-﻿  CheckerShader.cpp
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\CheckerShader.cpp(11,20): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\CheckerShader.cpp(17,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  PhongShader.cpp
-  DirectionalLight.cpp
-  PointLight.cpp
-  SpotLight.cpp
-  Shader.cpp
-  Light.cpp
-  Mesh.cpp
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Mesh.cpp(59,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Camera.cpp
-  Model.cpp
-  Plane.cpp
-  Ray.cpp
+﻿  PhongShader.cpp
   Scene.cpp
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Scene.cpp(28,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Scene.cpp(42,33): warning C4018: '<': signed/unsigned mismatch
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Scene.cpp(124,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  SceneImporter.cpp
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(75,24): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(75,39): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(75,54): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(75,69): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-  Sphere.cpp
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Sphere.cpp(26,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Sphere.cpp(32,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Scene.cpp(21,18): warning C4244: 'initializing': conversion from 'glm::uint' to 'float', possible loss of data
+D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Scene.cpp(30,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Scene.cpp(40,37): warning C4018: '<': signed/unsigned mismatch
+D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\Scene.cpp(121,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   ACGM_RayTracer_lib.vcxproj -> D:\Skola\ACGM\Git\ACGM_Project\Project\x64\Release\ACGM_RayTracer_lib.lib

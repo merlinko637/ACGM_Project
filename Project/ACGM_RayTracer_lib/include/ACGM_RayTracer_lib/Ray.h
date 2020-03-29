@@ -1,6 +1,6 @@
 #pragma once
 
-#include <COGS/Color.h>
+#include <glm/vec3.hpp>
 
 namespace acgm
 {
