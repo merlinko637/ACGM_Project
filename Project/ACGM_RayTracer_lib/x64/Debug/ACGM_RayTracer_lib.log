@@ -1,0 +1,11 @@
+﻿  Mesh.cpp
+D:\Skola\ACGM\Project\ACGM_RayTracer_lib\src\Mesh.cpp(57,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Scene.cpp
+D:\Skola\ACGM\Project\ACGM_RayTracer_lib\src\Scene.cpp(54,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Skola\ACGM\Project\ACGM_RayTracer_lib\src\Scene.cpp(57,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Skola\ACGM\Project\ACGM_RayTracer_lib\src\Scene.cpp(58,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Skola\ACGM\Project\ACGM_RayTracer_lib\src\Scene.cpp(62,23): warning C4018: '<': signed/unsigned mismatch
+D:\Skola\ACGM\Project\ACGM_RayTracer_lib\src\Scene.cpp(64,27): warning C4018: '<': signed/unsigned mismatch
+D:\Skola\ACGM\Project\ACGM_RayTracer_lib\src\Scene.cpp(87,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  ACGM_RayTracer_lib.vcxproj -> D:\Skola\ACGM\Project\x64\Debug\ACGM_RayTracer_lib.lib

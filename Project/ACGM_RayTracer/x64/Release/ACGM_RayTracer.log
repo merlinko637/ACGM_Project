@@ -1,0 +1,9 @@
+﻿  main.cpp
+  RayTracerGadget.cpp
+  RayTracerResource.cpp
+  Generating code
+  1619 of 1631 functions (99.3%) were compiled, the rest were copied from previous compilation.
+    565 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ACGM_RayTracer.vcxproj -> D:\Skola\ACGM\Git\ACGM_Project\Project\x64\Release\ACGM_RayTracer.exe
