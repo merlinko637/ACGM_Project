@@ -1,6 +1,0 @@
-﻿  SceneImporter.cpp
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(79,24): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(79,39): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(79,54): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-D:\Skola\ACGM\Git\ACGM_Project\Project\ACGM_RayTracer_lib\src\SceneImporter.cpp(79,69): warning C4267: 'argument': conversion from 'size_t' to 'glm::mat<4,4,float,0>::length_type', possible loss of data
-  ACGM_RayTracer_lib.vcxproj -> D:\Skola\ACGM\Git\ACGM_Project\Project\x64\Release\ACGM_RayTracer_lib.lib

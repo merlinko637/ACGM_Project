@@ -24,7 +24,8 @@ void RayTracerGadget::Initialize()
 
 void RayTracerGadget::GenerateGui(hiro::GuiGenerator& gui)
 {
-    scene_selector_ = gui.AddDroplist("Scene")->AddItemsIndexed({ "scene0", "scene1", "scene2" })->Set(0);
+    const std::vector<std::string> scenes = { "scene0", "scene1", "scene2", "scene3", "scene4", "scene5", "scene6", "scene7", "scene8" };
+    scene_selector_ = gui.AddDroplist("Scene")->AddItemsIndexed(scenes)->Set(0);
     render_button_ = gui.AddButton("Render")->Subscribe([this](const hiro::gui::Button*) {RenderScene(); });
 }
 
