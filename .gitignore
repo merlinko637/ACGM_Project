@@ -33,6 +33,7 @@
 
 #VS files
 */.vs/*
+**/packages/*
 
 # Build results
 [Dd]ebug/
