@@ -47,6 +47,8 @@
     <ClInclude Include="include\ACGM_RayTracer_lib\SpotLight.h" />
     <ClInclude Include="include\ACGM_RayTracer_lib\CheckerShader.h" />
     <ClInclude Include="include\ACGM_RayTracer_lib\PhongShader.h" />
+    <ClInclude Include="include\ACGM_RayTracer_lib\Image.h" />
+    <ClInclude Include="include\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Scene.cpp">
@@ -94,8 +96,13 @@
     <ClCompile Include="src\PhongShader.cpp">
       <Filter>Public Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Image.cpp">
+      <Filter>Public Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

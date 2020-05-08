@@ -4,14 +4,20 @@
 #include <ACGM_RayTracer_lib\Mesh.h>
 
 #include <omp.h>
+#include <glm\gtx\vector_angle.hpp>
 
 
 acgm::Scene::Scene(std::shared_ptr<acgm::Camera> cam, 
     std::vector<std::shared_ptr<acgm::Model>> models, 
-    std::shared_ptr<acgm::Light> light)
-    : camera_(cam), models_(models), light_(light)
+    std::shared_ptr<acgm::Light> light,
+    const float bias, const float indexOfRefraction,
+    const glm::vec3 enviroUp, const glm::vec3 enviroSeam,
+    std::string imageFilePath)
+    : camera_(cam), models_(models), light_(light), bias_(bias),
+    indexOfRefraction_(indexOfRefraction), enviroUp_(enviroUp),
+    enviroSeam_(enviroSeam)
 {
-
+    image_ = std::make_shared<acgm::Image>(imageFilePath);
 }
 
 void acgm::Scene::Raytrace(hiro::draw::PRasterRenderer &renderer) const
@@ -72,7 +78,25 @@ void acgm::Scene::Raytrace(hiro::draw::PRasterRenderer &renderer) const
 
             if (!pixelSet)  //if no object found, pixel is black
             {
-                renderer->SetPixel(pixelX, pixelY, cogs::Color3f(0, 0, 0));
+                if (image_->Exists())
+                {
+                    auto normalizedView = glm::normalize(ray->GetDirection());
+                    auto normalizedUp = glm::normalize(enviroUp_);
+                    auto normalizedSeam = glm::normalize(enviroSeam_);
+                    auto dotUpView = glm::dot(normalizedUp, normalizedView);
+                    auto xVector = normalizedView - normalizedUp * dotUpView;
+
+                    float latitude = std::acos(dotUpView);
+                    float longitude = glm::orientedAngle(glm::normalize(xVector), normalizedSeam, normalizedUp);
+
+                    float U = (longitude + PI) / (2 * PI);
+                    float V = latitude / PI;
+                    renderer->SetPixel(pixelX, pixelY, image_->GetColorAt(glm::vec2(U, V)));
+                }
+                else
+                {
+                    renderer->SetPixel(pixelX, pixelY, cogs::Color3f(0, 0, 0));
+                }
             }
             else
             {

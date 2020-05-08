@@ -4,7 +4,7 @@
 #include <ACGM_RayTracer_lib/Plane.h>
 #include <ACGM_RayTracer_lib/Sphere.h>
 #include <ACGM_RayTracer_lib/Mesh.h>
-//#include <ACGM_RayTracer_lib/Image.h>
+#include <ACGM_RayTracer_lib/Image.h>
 #include <ACGM_RayTracer_lib/Shader.h>
 #include <ACGM_RayTracer_lib\PhongShader.h>
 #include <ACGM_RayTracer_lib\CheckerShader.h>
@@ -240,5 +240,6 @@ std::shared_ptr<acgm::Scene> acgm::SceneImporter::ReadScene()
   const auto light = ReadLight();
   const auto models = ReadModels();
 
-  return std::make_shared<acgm::Scene>(camera, models, light);
+  return std::make_shared<acgm::Scene>(camera, models, light, bias, 
+      index_of_refraction, enviro_up, enviro_seam, enviro_image_file);
 }

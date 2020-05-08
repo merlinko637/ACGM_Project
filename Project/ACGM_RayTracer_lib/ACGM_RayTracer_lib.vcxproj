@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ACGM_RayTracer_lib\Image.h" />
     <ClInclude Include="include\ACGM_RayTracer_lib\CheckerShader.h" />
     <ClInclude Include="include\ACGM_RayTracer_lib\DirectionalLight.h" />
     <ClInclude Include="include\ACGM_RayTracer_lib\Camera.h" />
@@ -34,8 +35,10 @@
     <ClInclude Include="include\ACGM_RayTracer_lib\PointLight.h" />
     <ClInclude Include="include\ACGM_RayTracer_lib\SpotLight.h" />
     <ClInclude Include="include\ACGM_RayTracer_lib\PhongShader.h" />
+    <ClInclude Include="include\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Image.cpp" />
     <ClCompile Include="src\CheckerShader.cpp" />
     <ClCompile Include="src\PhongShader.cpp" />
     <ClCompile Include="src\DirectionalLight.cpp" />
@@ -53,6 +56,8 @@
     <ClCompile Include="src\Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

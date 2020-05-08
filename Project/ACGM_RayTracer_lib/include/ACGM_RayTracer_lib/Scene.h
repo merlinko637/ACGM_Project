@@ -5,6 +5,7 @@
 #include <ACGM_RayTracer_lib/Camera.h>
 #include <ACGM_RayTracer_lib/Model.h>
 #include <ACGM_RayTracer_lib/Light.h>
+#include <ACGM_RayTracer_lib\Image.h>
 
 namespace acgm
 {
@@ -13,7 +14,10 @@ namespace acgm
     public:
         Scene(std::shared_ptr<acgm::Camera> cam, 
             std::vector<std::shared_ptr<acgm::Model>> models, 
-            std::shared_ptr<acgm::Light> light);
+            std::shared_ptr<acgm::Light> light,
+            const float bias, const float indexOfRefraction,
+            const glm::vec3 enviroUp, const glm::vec3 enviroSeam,
+            std::string imageFilePath);
         ~Scene() = default;
 
         void Raytrace(hiro::draw::PRasterRenderer &renderer) const;
@@ -22,5 +26,11 @@ namespace acgm
         std::shared_ptr<acgm::Camera> camera_;
         std::vector<std::shared_ptr<acgm::Model>> models_;
         std::shared_ptr<acgm::Light> light_;
+        std::shared_ptr<acgm::Image> image_;
+
+        const float bias_;
+        const float indexOfRefraction_;
+        const glm::vec3 enviroUp_;
+        const glm::vec3 enviroSeam_;
     };
 }
