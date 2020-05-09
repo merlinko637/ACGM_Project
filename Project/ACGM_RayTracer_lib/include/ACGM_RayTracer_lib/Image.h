@@ -12,7 +12,7 @@ namespace acgm
 		Image(std::string imageFilePath);
 		~Image();
 
-		cogs::Color3f GetColorAt(const glm::vec2 &uvs) const;
+		cogs::Color3b GetColorAt(const glm::vec2 &uvs) const;
 		bool Exists();
 
 	private:

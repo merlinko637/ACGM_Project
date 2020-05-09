@@ -17,17 +17,13 @@ acgm::Image::~Image()
 	stbi_image_free(imageData_);
 }
 
-cogs::Color3f acgm::Image::GetColorAt(const glm::vec2& uvs) const
+cogs::Color3b acgm::Image::GetColorAt(const glm::vec2& uvs) const
 {
 	uint32_t x = uint32_t(uvs.x * width_);
 	uint32_t y = uint32_t(uvs.y * height_);
 	uint32_t offset = ((y - 1) * width_ + x) * 3;
-	
-	float r = imageData_[offset++] / 255.0f;
-	float g = imageData_[offset++] / 255.0f;
-	float b = imageData_[offset] / 255.0f;
 
-	return cogs::Color3f(r, g, b);
+	return cogs::Color3b(imageData_[offset], imageData_[offset + 1], imageData_[offset + 2]);
 }
 
 bool acgm::Image::Exists()
