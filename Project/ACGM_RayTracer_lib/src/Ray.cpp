@@ -23,6 +23,12 @@ glm::vec3 acgm::Ray::GetPoint(const float t) const
 	return origin_ + (t * direction_);
 }
 
+glm::vec3 acgm::Ray::GetReflectionDirection(const glm::vec3& normal) const
+{
+	float dot = glm::dot(direction_, normal);
+	return -2 * dot * normal + direction_;
+}
+
 float acgm::Ray::GetBias() const
 {
 	return bias_;

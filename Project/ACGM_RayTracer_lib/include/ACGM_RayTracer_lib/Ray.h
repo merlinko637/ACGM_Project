@@ -12,6 +12,7 @@ namespace acgm
         glm::vec3 GetOrigin() const;
         glm::vec3 GetDirection() const;
         glm::vec3 GetPoint(const float t) const;
+        glm::vec3 GetReflectionDirection(const glm::vec3 & normal) const;
         float GetBias() const;
 
     private:

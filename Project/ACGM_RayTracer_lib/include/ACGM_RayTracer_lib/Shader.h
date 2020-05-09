@@ -14,6 +14,14 @@ namespace acgm
 		bool isPointInShadow;
 	};
 
+	struct ShaderOutput
+	{
+		cogs::Color3f color;
+		float glossiness;
+		float transparency;
+		float refractiveIndex;
+	};
+
 	class Shader
 	{
 	public:
@@ -21,7 +29,7 @@ namespace acgm
 		virtual ~Shader() = default;
 		Shader();
 		
-		virtual cogs::Color3f CalculateColor(const ShaderInput& input) const;
+		virtual ShaderOutput CalculateColor(const ShaderInput& input) const;
 	protected:
 		const cogs::Color3f color_;
 	};

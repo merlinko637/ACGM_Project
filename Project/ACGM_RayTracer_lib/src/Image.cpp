@@ -14,7 +14,10 @@ acgm::Image::Image(std::string imageFilePath)
 
 acgm::Image::~Image()
 {
-	stbi_image_free(imageData_);
+	if (exists_)
+	{
+		stbi_image_free(imageData_);
+	}
 }
 
 cogs::Color3b acgm::Image::GetColorAt(const glm::vec2& uvs) const

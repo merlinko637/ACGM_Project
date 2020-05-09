@@ -7,15 +7,20 @@ namespace acgm
 	{
 	public:
 		explicit PhongShader(cogs::Color3f color, float shininess,
-			float ambient, float diffuse, float specular);
+			float ambient, float diffuse, float specular,
+			float glossiness, float transparency, float refractiveIndex);
 
-		cogs::Color3f CalculateColor(const ShaderInput& input) const override;
+		ShaderOutput CalculateColor(const ShaderInput& input) const override;
+
 
 	private:
 		const float shininess_;
 		const float ambient_;
 		const float diffuse_;
 		const float specular_;
+		const float glossiness_;
+		const float transparency_;
+		const float refractiveIndex_;
 	};
 }
 

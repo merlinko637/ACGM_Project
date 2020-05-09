@@ -23,6 +23,8 @@ namespace acgm
         void Raytrace(hiro::draw::PRasterRenderer &renderer) const;
 
     private:
+        cogs::Color3f CalculatePixelColor(std::shared_ptr<acgm::Ray> ray, int depth, int sourceModelIndex) const;
+
         std::shared_ptr<acgm::Camera> camera_;
         std::vector<std::shared_ptr<acgm::Model>> models_;
         std::shared_ptr<acgm::Light> light_;

@@ -39,109 +39,129 @@ void acgm::Scene::Raytrace(hiro::draw::PRasterRenderer &renderer) const
     float dy = 2.0f * tan(fovRad / 2.0f) / (float)height;
     float dx = 2.0f * aspect * tan(fovRad / 2.0f) / (float)width;
 
-    float bias = 0.001f;
-
     for (int pixelY = height - 1; pixelY >= 0; pixelY--)    //rows
     {
         for (int pixelX = 0; pixelX < width; pixelX++)     //columns
         {
             glm::vec3 dir = glm::normalize(u + x * w + y * v);
-            auto ray = std::make_shared<acgm::Ray>(camera_->GetPosition(), dir, bias);
+            auto ray = std::make_shared<acgm::Ray>(camera_->GetPosition(), dir, bias_);
 
-            //initial values
-            bool pixelSet = false;
-            int minIndex = 0;
-            std::optional<HitResult> hitResult;
-            HitResult minHitResult;
-            minHitResult.rayParam = INFINITY;
-            
-            //search for the closest model object
-            for (int k = 0; k < models_.size(); k++)
-            {
-                std::shared_ptr<acgm::Model> model = models_.at(k);
-                hitResult = model->ComputeIntersection(ray);
-
-                if (hitResult == std::nullopt)
-                {
-                    continue;
-                }
-
-                float parameter = hitResult.value().rayParam;
-
-                if (parameter >= 0 && parameter < minHitResult.rayParam)
-                {
-                    minIndex = k;
-                    minHitResult = hitResult.value();
-                    pixelSet = true;
-                }
-            }
-
-            if (!pixelSet)  //if no object found, pixel is black
-            {
-                if (image_->Exists())
-                {
-                    auto normalizedView = glm::normalize(ray->GetDirection());
-                    auto normalizedUp = glm::normalize(enviroUp_);
-                    auto normalizedSeam = glm::normalize(enviroSeam_);
-                    auto dotUpView = glm::dot(normalizedUp, normalizedView);
-                    auto xVector = normalizedView - normalizedUp * dotUpView;
-
-                    float latitude = std::acos(dotUpView);
-                    float longitude = glm::orientedAngle(glm::normalize(xVector), normalizedSeam, normalizedUp);
-
-                    float U = (longitude + PI) / (2 * PI);
-                    float V = latitude / PI;
-                    renderer->SetPixel(pixelX, pixelY, image_->GetColorAt(glm::vec2(U, V)));
-                }
-                else
-                {
-                    renderer->SetPixel(pixelX, pixelY, cogs::Color3f(0, 0, 0));
-                }
-            }
-            else
-            {
-                //cast shadow ray to check if object is in shadow
-                HitResult minShadowHitResult;
-                minShadowHitResult.rayParam = INFINITY;
-
-                auto point = minHitResult.point;
-                bool isInShadow = false;
-                auto directionToLight = glm::normalize(light_->GetDirectionToLight(point));
-                auto shadowRay = std::make_shared<acgm::Ray>(point + minHitResult.normal * bias, directionToLight, bias);
-                auto distanceToLight = light_->GetDistanceFromLight(point);
-
-                for (int m = 0; m < models_.size(); m++)
-                {
-                    auto shadowModel = models_.at(m);
-                    auto shadowHit = shadowModel->ComputeIntersection(shadowRay);
-
-                    if (shadowHit == std::nullopt)
-                    {
-                        continue;
-                    }
-
-                    //if something was hit and it is less than distance to light, pixel is in shadow
-                    if (shadowHit.value().rayParam > 0 && shadowHit.value().rayParam < distanceToLight) 
-                    {
-                        isInShadow = true;
-                        break;
-                    }
-                }
-
-                ShaderInput shaderInput;
-                shaderInput.directionToLight = directionToLight;
-                shaderInput.normal = glm::normalize(minHitResult.normal);
-                shaderInput.point = point;
-                shaderInput.directionToEye = glm::normalize(camera_->GetPosition() - point);
-                shaderInput.lightIntensity = light_->GetIntensityAt(point);
-                shaderInput.isPointInShadow = isInShadow;
-
-                renderer->SetPixel(pixelX, pixelY, models_.at(minIndex)->GetShader()->CalculateColor(shaderInput));
-            }
+            auto pixelColor = CalculatePixelColor(ray, 10, -1);
+            renderer->SetPixel(pixelX, pixelY, pixelColor);
 
             x += dx;
         }
         y -= dy;
         x = -tan(fovRad / 2.);
+    }
+}
+
+cogs::Color3f acgm::Scene::CalculatePixelColor(std::shared_ptr<acgm::Ray> ray, int depth, int sourceModelIndex) const
+{
+    //initial values
+    bool pixelSet = false;
+    int minIndex = 0;
+    std::optional<HitResult> hitResult;
+    HitResult minHitResult;
+    minHitResult.rayParam = INFINITY;
+
+    //search for the closest model object
+    for (int k = 0; k < models_.size(); k++)
+    {
+        if (k == sourceModelIndex)
+        {
+            continue;
+        }
+
+        std::shared_ptr<acgm::Model> model = models_.at(k);
+        hitResult = model->ComputeIntersection(ray);
+
+        if (hitResult == std::nullopt)
+        {
+            continue;
+        }
+
+        float parameter = hitResult.value().rayParam;
+
+        if (parameter >= 0 && parameter < minHitResult.rayParam)
+        {
+            minIndex = k;
+            minHitResult = hitResult.value();
+            pixelSet = true;
+        }
+    }
+
+    if (!pixelSet)  //if no object found, pixel is black
+    {
+        if (image_->Exists())
+        {
+            auto normalizedView = glm::normalize(ray->GetDirection());
+            auto normalizedUp = glm::normalize(enviroUp_);
+            auto normalizedSeam = glm::normalize(enviroSeam_);
+            auto dotUpView = glm::dot(normalizedUp, normalizedView);
+            auto xVector = normalizedView - normalizedUp * dotUpView;
+
+            float latitude = std::acos(dotUpView);
+            float longitude = glm::orientedAngle(glm::normalize(xVector), normalizedSeam, normalizedUp);
+
+            float U = (longitude + PI) / (2 * PI);
+            float V = latitude / PI;
+            return image_->GetColorAt(glm::vec2(U, V));
+            //return cogs::Color3f(0, 0, 0);
+
+        }
+        else
+        {
+            return cogs::Color3f(0, 0, 0);
+        }
+    }
+    else
+    {
+        //cast shadow ray to check if object is in shadow
+        HitResult minShadowHitResult;
+        minShadowHitResult.rayParam = INFINITY;
+
+        auto point = minHitResult.point;
+        bool isInShadow = false;
+        auto directionToLight = glm::normalize(light_->GetDirectionToLight(point));
+        auto shadowRay = std::make_shared<acgm::Ray>(point + minHitResult.normal * bias_, directionToLight, bias_);
+        auto distanceToLight = light_->GetDistanceFromLight(point);
+
+        for (int m = 0; m < models_.size(); m++)
+        {
+            auto shadowModel = models_.at(m);
+            auto shadowHit = shadowModel->ComputeIntersection(shadowRay);
+
+            if (shadowHit == std::nullopt)
+            {
+                continue;
+            }
+
+            //if something was hit and it is less than distance to light, pixel is in shadow
+            if (shadowHit.value().rayParam > 0 && shadowHit.value().rayParam < distanceToLight)
+            {
+                isInShadow = true;
+                break;
+            }
+        }
+
+        ShaderInput shaderInput;
+        shaderInput.directionToLight = directionToLight;
+        shaderInput.normal = glm::normalize(minHitResult.normal);
+        shaderInput.point = point;
+        shaderInput.directionToEye = glm::normalize(camera_->GetPosition() - point);
+        shaderInput.lightIntensity = light_->GetIntensityAt(point);
+        shaderInput.isPointInShadow = isInShadow;
+
+        ShaderOutput output = models_.at(minIndex)->GetShader()->CalculateColor(shaderInput);
+        if ((output.glossiness > -FLT_EPSILON && output.glossiness < FLT_EPSILON) || depth == 0)
+        {
+            return output.color;
+        }
+
+        auto reflectedDirection = ray->GetReflectionDirection(shaderInput.normal);
+        auto reflectionRay = std::make_shared<acgm::Ray>(shaderInput.point, reflectedDirection, bias_);
+
+        return output.color * (1 - output.glossiness) + output.glossiness * CalculatePixelColor(reflectionRay, --depth, minIndex);
     }
 }

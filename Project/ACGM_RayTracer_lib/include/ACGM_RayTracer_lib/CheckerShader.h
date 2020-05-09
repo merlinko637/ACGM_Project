@@ -12,7 +12,7 @@ namespace acgm
 
 		float GetCubeSize() const;
 
-		cogs::Color3f CalculateColor(const ShaderInput& input) const override;
+		ShaderOutput CalculateColor(const ShaderInput& input) const override;
 
 	private:
 		const float cubeSize_;

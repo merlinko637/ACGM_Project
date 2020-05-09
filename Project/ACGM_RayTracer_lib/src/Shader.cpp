@@ -10,7 +10,8 @@ acgm::Shader::Shader()
 
 }
 
-cogs::Color3f acgm::Shader::CalculateColor(const ShaderInput& input) const
+acgm::ShaderOutput acgm::Shader::CalculateColor(const ShaderInput& input) const
 {
-	return color_;
+	ShaderOutput output;
+	return output;
 }
