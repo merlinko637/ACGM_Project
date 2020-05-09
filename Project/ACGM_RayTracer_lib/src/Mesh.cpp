@@ -33,7 +33,7 @@ std::optional<acgm::HitResult> acgm::Mesh::ComputeIntersection(std::shared_ptr<a
 
         float parameter = hitResult.value().rayParam;
 
-        if (parameter > 0 && parameter < minHit.rayParam)
+        if (parameter > ray->GetBias() && parameter < minHit.rayParam)
         {
             minHit = hitResult.value();
         }
@@ -51,7 +51,7 @@ std::optional<acgm::HitResult> acgm::Mesh::ComputeTriangleIntersection(
     glm::vec3 P = glm::cross(ray->GetDirection(), e2);
     float determinant = glm::dot(e1, P);
 
-    if (determinant == 0)
+    if (glm::epsilonEqual<float>(determinant, 0.0f, glm::epsilon<float>()))
     {
         return std::nullopt;    
     }

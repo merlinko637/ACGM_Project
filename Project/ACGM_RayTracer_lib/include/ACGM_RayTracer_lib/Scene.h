@@ -23,7 +23,9 @@ namespace acgm
         void Raytrace(hiro::draw::PRasterRenderer &renderer) const;
 
     private:
-        cogs::Color3f CalculatePixelColor(std::shared_ptr<acgm::Ray> ray, int depth, int sourceModelIndex) const;
+        cogs::Color3f CalculatePixelColor(std::shared_ptr<acgm::Ray> ray,
+            int maxReflectionDepth, int maxTransparencyDepth) const;
+        cogs::Color3f NoObjectHit(glm::vec3 direction) const;
 
         std::shared_ptr<acgm::Camera> camera_;
         std::vector<std::shared_ptr<acgm::Model>> models_;
@@ -31,7 +33,7 @@ namespace acgm
         std::shared_ptr<acgm::Image> image_;
 
         const float bias_;
-        const float indexOfRefraction_;
+        const float refractiveIndex_;
         const glm::vec3 enviroUp_;
         const glm::vec3 enviroSeam_;
     };

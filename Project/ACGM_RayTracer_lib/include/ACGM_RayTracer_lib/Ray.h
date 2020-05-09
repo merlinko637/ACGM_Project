@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/vec3.hpp>
+#include <optional>
 
 namespace acgm
 {
@@ -13,6 +14,7 @@ namespace acgm
         glm::vec3 GetDirection() const;
         glm::vec3 GetPoint(const float t) const;
         glm::vec3 GetReflectionDirection(const glm::vec3 & normal) const;
+        std::optional<glm::vec3> GetRefractionDirection(const float sourceIor, const float destIor, glm::vec3& normal) const;
         float GetBias() const;
 
     private:

@@ -17,9 +17,7 @@ acgm::ShaderOutput acgm::PhongShader::CalculateColor(const ShaderInput& input) c
     output.transparency = transparency_;
     output.refractiveIndex = refractiveIndex_;
 
-    float cosAngle = glm::dot(input.normal, input.directionToLight);
-
-    cogs::Color3f ambientPhong = color_ * ambient_ * cosAngle;
+    cogs::Color3f ambientPhong = color_ * ambient_;
 
     if (input.isPointInShadow)
     {
@@ -27,6 +25,7 @@ acgm::ShaderOutput acgm::PhongShader::CalculateColor(const ShaderInput& input) c
         return output;
     }
 
+    float cosAngle = glm::dot(input.normal, input.directionToLight);
     cogs::Color3f diffusePhong = color_ * diffuse_ * input.lightIntensity * cosAngle;
 
     auto whiteColor = cogs::Color3f(1.0f, 1.0f, 1.0f);

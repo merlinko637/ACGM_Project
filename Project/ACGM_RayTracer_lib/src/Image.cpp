@@ -24,7 +24,7 @@ cogs::Color3b acgm::Image::GetColorAt(const glm::vec2& uvs) const
 {
 	uint32_t x = uint32_t(uvs.x * width_);
 	uint32_t y = uint32_t(uvs.y * height_);
-	uint32_t offset = ((y - 1) * width_ + x) * 3;
+	uint32_t offset = (y * width_ + x) * 3;
 
 	return cogs::Color3b(imageData_[offset], imageData_[offset + 1], imageData_[offset + 2]);
 }

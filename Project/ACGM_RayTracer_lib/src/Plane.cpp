@@ -1,5 +1,7 @@
 #include <ACGM_RayTracer_lib/Plane.h>
 #include <glm/geometric.hpp>
+#include <glm\gtx\vector_angle.hpp>
+
 
 acgm::Plane::Plane(const glm::vec3& point, const glm::vec3& normal)
 	: point_(point), normal_(normal)
@@ -11,7 +13,7 @@ std::optional<acgm::HitResult> acgm::Plane::ComputeIntersection(std::shared_ptr<
 {
 	auto denominator = glm::dot(ray->GetDirection(), normal_);
 
-	if (denominator == 0)
+	if (glm::epsilonEqual<float>(denominator, 0.0f, glm::epsilon<float>()))
 	{
 		return std::nullopt;
 	}
@@ -22,8 +24,8 @@ std::optional<acgm::HitResult> acgm::Plane::ComputeIntersection(std::shared_ptr<
 	HitResult hit;
 
 	hit.rayParam = t;
-	hit.normal = normal_;
-	hit.point = ray->GetPoint(t);
+	hit.normal = denominator > 0 ? -normal_ : normal_;
+	hit.point = ray->GetPoint(t) + (hit.normal * ray->GetBias());
 
 	return hit;
 }
