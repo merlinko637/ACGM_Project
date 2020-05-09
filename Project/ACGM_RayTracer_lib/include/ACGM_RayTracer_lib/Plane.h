@@ -10,6 +10,7 @@ namespace acgm
       explicit Plane(const glm::vec3 &point, const glm::vec3 &normal);
       virtual ~Plane() = default;
 
+      //computes intersection between given ray and plane
       std::optional<acgm::HitResult> ComputeIntersection(std::shared_ptr<acgm::Ray> ray) override;
 
   private:

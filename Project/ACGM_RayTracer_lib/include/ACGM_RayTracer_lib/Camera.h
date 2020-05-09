@@ -11,9 +11,16 @@ namespace acgm
             const glm::vec3 &forwardDirection,
             const glm::vec3& upDirection, float fov);
 
+        //returns camera position
         glm::vec3 GetPosition() const;
+
+        //returns view direction of camera
         glm::vec3 ForwardDirection() const;
+
+        //returns up vector of camera
         glm::vec3 UpDirection() const;
+
+        //returns field of view of camera
         float GetFieldOfView() const;
 
 

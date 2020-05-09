@@ -13,8 +13,13 @@ namespace acgm
 			const float exponent);
 		virtual ~SpotLight() = default;
 
+		//returns direction to light from given point
 		glm::vec3 GetDirectionToLight(const glm::vec3& point) const override;
+
+		//returns light intensity at given point
 		float GetIntensityAt(const glm::vec3& point) const override;
+
+		//returns distance from given point to light
 		float GetDistanceFromLight(const glm::vec3& point) const override;
 
 	private:

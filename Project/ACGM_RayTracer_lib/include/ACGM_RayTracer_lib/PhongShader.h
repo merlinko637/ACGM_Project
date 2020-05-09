@@ -10,6 +10,7 @@ namespace acgm
 			float ambient, float diffuse, float specular,
 			float glossiness, float transparency, float refractiveIndex);
 
+		//calculates color for given ShaderInput object
 		ShaderOutput CalculateColor(const ShaderInput& input) const override;
 
 

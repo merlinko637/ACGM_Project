@@ -20,9 +20,13 @@ namespace acgm
         explicit Model();
         virtual ~Model() = default;
     
-        virtual std::optional<acgm::HitResult> ComputeIntersection(std::shared_ptr<acgm::Ray> ray);
+        //computes intersection between given ray and model
+        virtual std::optional<acgm::HitResult> ComputeIntersection(std::shared_ptr<acgm::Ray> ray) = 0;
 
+        //sets given shader to model
         void SetShader(std::shared_ptr<acgm::Shader> shader);
+
+        //returns shader of this model
         std::shared_ptr<acgm::Shader> GetShader();
 
         std::string name;

@@ -9,9 +9,3 @@ acgm::Shader::Shader()
 {
 
 }
-
-acgm::ShaderOutput acgm::Shader::CalculateColor(const ShaderInput& input) const
-{
-	ShaderOutput output;
-	return output;
-}

@@ -12,7 +12,10 @@ namespace acgm
 		Image(std::string imageFilePath);
 		~Image();
 
+		//returns color for specified UV coordinates
 		cogs::Color3b GetColorAt(const glm::vec2 &uvs) const;
+
+		//returns true if image exists, otherwise it returns false
 		bool Exists();
 
 	private:

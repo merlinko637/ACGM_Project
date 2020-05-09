@@ -14,8 +14,3 @@ std::shared_ptr<acgm::Shader> acgm::Model::GetShader()
 {
     return shader_;
 }
-
-std::optional<acgm::HitResult> acgm::Model::ComputeIntersection(std::shared_ptr<acgm::Ray> ray)
-{
-    return std::nullopt;
-}

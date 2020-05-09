@@ -95,7 +95,7 @@ cogs::Color3f acgm::Scene::CalculatePixelColor(std::shared_ptr<acgm::Ray> ray, i
         }
     }
 
-    if (!pixelSet)  //if no object found, pixel is black
+    if (!pixelSet)  //if no object found
     {
         return NoObjectHit(ray->GetDirection());
     }
@@ -139,6 +139,7 @@ cogs::Color3f acgm::Scene::CalculatePixelColor(std::shared_ptr<acgm::Ray> ray, i
     ShaderOutput output = models_.at(minIndex)->GetShader()->CalculateColor(shaderInput);
     auto transparencyColor = cogs::Color3f(0, 0, 0);
 
+    //check if we should compute transparency
     if (output.transparency > 0.0f && maxTransparencyDepth > 0)
     {
         auto direction = ray->GetRefractionDirection(refractiveIndex_, output.refractiveIndex, shaderInput.normal);
@@ -151,6 +152,7 @@ cogs::Color3f acgm::Scene::CalculatePixelColor(std::shared_ptr<acgm::Ray> ray, i
         transparencyColor = output.transparency * CalculatePixelColor(transparentRay, maxReflectionDepth, --maxTransparencyDepth);
     }
 
+    //check if we should compute reflection
     if ((glm::epsilonEqual<float>(output.glossiness, 0.0f, glm::epsilon<float>())) || maxReflectionDepth == 0)
     {
         return output.color * (1 - output.transparency) + transparencyColor;
@@ -169,6 +171,7 @@ cogs::Color3f acgm::Scene::NoObjectHit(glm::vec3 direction) const
         return cogs::Color3f(0, 0, 0);
     }
 
+    //compute latitude and longitude
     auto normalizedView = glm::normalize(direction);
     auto normalizedUp = glm::normalize(enviroUp_);
     auto normalizedSeam = glm::normalize(enviroSeam_);
@@ -178,7 +181,9 @@ cogs::Color3f acgm::Scene::NoObjectHit(glm::vec3 direction) const
     float latitude = std::acos(dotUpView);
     float longitude = glm::orientedAngle(glm::normalize(xVector), normalizedSeam, normalizedUp);
 
+    //normalize latitude and longitude values
     float U = (longitude + PI) / (2 * PI);
     float V = latitude / PI;
+
     return image_->GetColorAt(glm::vec2(U, V));
 }

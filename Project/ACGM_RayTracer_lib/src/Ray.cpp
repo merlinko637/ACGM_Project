@@ -43,8 +43,7 @@ std::optional<glm::vec3> acgm::Ray::GetRefractionDirection(const float sourceIor
     {
         normal = -normal;
     }
-
-
+    
     float iorPow2 = ior * ior;
     float cosTheta2Pow2 = 1 - iorPow2 * (1 - cosTheta1 * cosTheta1);
 

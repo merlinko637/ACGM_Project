@@ -10,8 +10,13 @@ namespace acgm
 			const float range, const float linearAttFact, const float quadraticAttFact);
 		virtual ~PointLight() = default;
 
+		//returns direction from given point to light
 		glm::vec3 GetDirectionToLight(const glm::vec3& point) const override;
+
+		//returns light intensity at given point
 		float GetIntensityAt(const glm::vec3& point) const override;
+
+		//returns distance from given point to light
 		float GetDistanceFromLight(const glm::vec3& point) const override;
 
 	private:

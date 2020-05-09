@@ -20,14 +20,21 @@ namespace acgm
             std::string imageFilePath);
         ~Scene() = default;
 
+        //raytraces current scene
         void Raytrace(hiro::draw::PRasterRenderer &renderer) const;
 
+        //sets maximum reflection depth
         void SetMaxReflectionDepth(int value);
+
+        //sets maximum transparency depth
         void SetMaxTransparencyDepth(int value);
 
     private:
+        //calculates color of pixel
         cogs::Color3f CalculatePixelColor(std::shared_ptr<acgm::Ray> ray,
             int maxReflectionDepth, int maxTransparencyDepth) const;
+
+        //returns either color of pixel of background or black pixel
         cogs::Color3f NoObjectHit(glm::vec3 direction) const;
 
         std::shared_ptr<acgm::Camera> camera_;

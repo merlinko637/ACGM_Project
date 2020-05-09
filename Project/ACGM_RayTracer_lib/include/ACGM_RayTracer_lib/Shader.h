@@ -29,7 +29,8 @@ namespace acgm
 		virtual ~Shader() = default;
 		Shader();
 		
-		virtual ShaderOutput CalculateColor(const ShaderInput& input) const;
+		//calculates color for given ShaderInput
+		virtual ShaderOutput CalculateColor(const ShaderInput& input) const = 0;
 	protected:
 		const cogs::Color3f color_;
 	};

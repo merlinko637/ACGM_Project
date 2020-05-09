@@ -10,6 +10,7 @@ namespace acgm
 		explicit CheckerShader(float cubeSize, 
 			const std::shared_ptr<Shader> shader1, const std::shared_ptr<Shader> shader2);
 
+		//calculates color for given ShaderInput
 		ShaderOutput CalculateColor(const ShaderInput& input) const override;
 
 	private:
