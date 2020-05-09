@@ -20,8 +20,11 @@ public:
 
 private:
   //! Structure specifying how the raster should be rendered.
-    void RenderScene();
+  void RenderScene();
+
   hiro::draw::PRasterStyle style_;
-  hiro::gui::Droplist* scene_selector_;
-  hiro::gui::Button* render_button_;
+  hiro::gui::Droplist* sceneSelector_;
+  hiro::gui::Button* renderButton_;
+  hiro::gui::NumericInt* maxReflectionDepthInput_;
+  hiro::gui::NumericInt* maxTransparencyDepthInput_;
 };

@@ -22,6 +22,9 @@ namespace acgm
 
         void Raytrace(hiro::draw::PRasterRenderer &renderer) const;
 
+        void SetMaxReflectionDepth(int value);
+        void SetMaxTransparencyDepth(int value);
+
     private:
         cogs::Color3f CalculatePixelColor(std::shared_ptr<acgm::Ray> ray,
             int maxReflectionDepth, int maxTransparencyDepth) const;
@@ -36,5 +39,8 @@ namespace acgm
         const float refractiveIndex_;
         const glm::vec3 enviroUp_;
         const glm::vec3 enviroSeam_;
+
+        int maxReflectionDepth_;
+        int maxTransparencyDepth_;
     };
 }

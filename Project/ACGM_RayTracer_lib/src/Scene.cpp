@@ -3,7 +3,6 @@
 #include <ACGM_RayTracer_lib/Ray.h>
 #include <ACGM_RayTracer_lib\Mesh.h>
 
-#include <omp.h>
 #include <glm\gtx\vector_angle.hpp>
 
 
@@ -18,6 +17,16 @@ acgm::Scene::Scene(std::shared_ptr<acgm::Camera> cam,
     enviroSeam_(enviroSeam)
 {
     image_ = std::make_shared<acgm::Image>(imageFilePath);
+}
+
+void acgm::Scene::SetMaxReflectionDepth(int value)
+{
+    maxReflectionDepth_ = value;
+}
+
+void acgm::Scene::SetMaxTransparencyDepth(int value)
+{
+    maxTransparencyDepth_ = value;
 }
 
 void acgm::Scene::Raytrace(hiro::draw::PRasterRenderer &renderer) const
@@ -46,7 +55,7 @@ void acgm::Scene::Raytrace(hiro::draw::PRasterRenderer &renderer) const
             glm::vec3 dir = glm::normalize(u + x * w + y * v);
             auto ray = std::make_shared<acgm::Ray>(camera_->GetPosition(), dir, bias_);
 
-            auto pixelColor = CalculatePixelColor(ray, 10, 10 );
+            auto pixelColor = CalculatePixelColor(ray, maxReflectionDepth_, maxTransparencyDepth_);
             renderer->SetPixel(pixelX, pixelY, pixelColor);
 
             x += dx;
